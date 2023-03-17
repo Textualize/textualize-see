@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "textualize_see"
+version = "0.1.0"
+description = "Open files in the terminal"
+authors = ["Will McGugan <will@textualize.io>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+click = "^8.1.3"
+toml = "^0.10.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.black]
+includes = "src"
+
+[tool.poetry.scripts]
+see = "textualize_see.cli:app"
+
