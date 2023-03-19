@@ -57,7 +57,7 @@ Textual reads its configuration from `~/.see.toml` (a [TOML](https://toml.io/en/
 This file should consist of several tables which specify the action (e.g. "view") and a glob style pattern to match against.
 
 The table should have a `run` key which defines the command to run.
-The `run` value may contain `$PATH` or `$ARGS` which will be replaced with the path and forward arguments respectively. 
+The `run` value may contain `$PATH` or `$ARGS` which will be replaced with the path and forwarded arguments respectively. 
 
 The following entry in `~/.see.toml` will match any files with the extension ".py":
 
@@ -96,6 +96,7 @@ run = "cat $PATH $ARGS"
 ## Why did I build this?
 
 I've always felt something like this should exist.
+
 It is functionality that desktops take for granted, but the experience is not quite as transparent in the terminal.
 There are alternatives (see below) but this is how I would want it work.
 It is also cross-platform so I don't seem like a fish out of water on Windows.
@@ -120,7 +121,7 @@ You could add an alias for each filetype you want to open, like `md-view` and `m
 Which is a perfectly reasonable use for alias, but it does require a command per filetype + action which is harder to commit to muscle memory.
 
 ZSH offers `alias -s` which associates a file extension with a command.
-For example if you have the alias `alias -s py=rich` then you can enter `foo.py` to syntax a Python file.
+For example if you have the alias `alias -s py=rich` then you can enter `foo.py` to syntax highlight a Python file.
 I like this, but I *think* it is only offered by the `zsh` shell (may be wrong) and it is not cross platform.
 
 ## Why Python?
