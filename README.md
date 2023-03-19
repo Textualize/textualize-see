@@ -2,7 +2,7 @@
 
 Textualize See is a command line tool to open files in the terminal.
 
-A TOML configuration file maps glob-style patterns on to commands. You could configure `see` to open any file matching the pattern "*.py*" with [rich-cli](https://github.com/Textualize/rich-cli) and "*.rs" files with [bat](https://github.com/sharkdp/bat), for example.
+A TOML configuration file maps glob-style patterns on to commands. You could configure `see` to open any file matching the pattern `"*.py"` with [rich-cli](https://github.com/Textualize/rich-cli) and `"*.rs"` files with [bat](https://github.com/sharkdp/bat), for example.
 
 Think of `see` as the terminal equivalent of double-clicking a file on the desktop.
 
