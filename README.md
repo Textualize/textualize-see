@@ -16,7 +16,7 @@ While the default is to *view* the file, you can request different actions, such
 The easiest way to install it is probably with [pipx](https://pypa.github.io/pipx/).
 
 ```
-pipx textualize_see
+pipx install textualize_see
 ```
 
 This will add `see` to your path.
