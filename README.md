@@ -2,14 +2,14 @@
 
 Textualize See is a command line tool to open files in the terminal.
 
-The job of `see` is to accept a path and invoke a command on your system to display the file in the terminal. You can configure which command to run with a TOML file that maps file glob style patterns (e.g. `*.rs` or `**/projects/**/*.cpp`) on to your chosen command.
+The job of `see` is run the appropriate command on your system to display a file in the terminal.
+You can configure which command to run with a TOML file that maps a glob-style file pattern on to your chosen command.
 
 For instance, you could configure `see` to open Python files with [rich-cli](https://github.com/Textualize/rich-cli) and Rust files with [bat](https://github.com/sharkdp/bat).
 
 The configuration is flexible enough that `see` can run a different command depending on the directory. For example you might want to use a different command to open `.html` files (in reality, template files) in a Django project.
 
 While the default is to *view* the file, you can also request different actions, such as "edit", "format", "print" etc. 
-
 
 ## Install
 
@@ -33,7 +33,7 @@ Call `see` with a path to view that file in the terminal:
 see application.py
 ```
 
-If you add two arguments, then the first should be an action, and the second should be a path.
+If you add two arguments, then the first should be an *action*, and the second should be a path.
 
 ```
 see edit application.py
@@ -54,7 +54,7 @@ See below for configuration.
 
 ## Configure
 
-Textual will look for the file `~/.see.toml` which should be a [TOML](https://toml.io/en/) file.
+Textual reads its configuration from `~/.see.toml` (a [TOML](https://toml.io/en/) file).
 This file should consist of several tables which specify the action (e.g. "view") and a glob style pattern to match against.
 
 The table should have a `run` key which defines the command to run.
@@ -81,7 +81,7 @@ rich application.py --pager
 
 ### Priority
 
-You can also add a `priority` key, which should be an integer.
+You can optionally add a `priority` integer value, associated with a pattern.
 If not provided, `priority` will default to 1.
 
 If more than one pattern matches the path, then the action with the highest priority will be used.
@@ -121,16 +121,18 @@ You could add an alias for each filetype you want to open, like `md-view` and `m
 Which is a perfectly reasonable use for alias, but it does require a command per filetype + action which is harder to commit to muscle memory.
 
 ZSH offers `alias -s` which associates a file extension with a command.
-For example if you have the following alias `alias -s py=rich` then you can enter `foo.py` to syntax a Python file.
+For example if you have the alias `alias -s py=rich` then you can enter `foo.py` to syntax a Python file.
 I like this, but I *think* it is only offered by the `zsh` shell (may be wrong) and it is not cross platform.
 
 ## Why Python?
 
-It's Python because I am mainly a Python developer. Tools like this do tend to be written a little closer to the metal. If it becomes popular and the interface is stable, then maybe I or somebody else will write it a compiled language. Until then you might have to wait a few microseconds to run apps.
+It's Python because I am mainly a Python developer.
+Tools like this do tend to be written a little closer to the metal.
+If `see` becomes popular and the interface stabilizes, then maybe I (or somebody else) will write it a compiled language.
+Until then you might have to wait an additional few microseconds to run apps.
 
 ## Support
 
 Consider this project alpha software for the time being.
-It was written in an afternoon and hasn't been battle tested.
-
-Feel free to open issues or (better) PRs.
+It was written in under a day and hasn't been battle tests.
+It has so far only been tested under MacOS, but the goal is to make it work across all the platforms.

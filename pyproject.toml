@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "textualize_see"
-version = "0.1.0"
+version = "0.1.1"
 description = "Open files in the terminal"
 authors = ["Will McGugan <will@textualize.io>"]
 license = "MIT"

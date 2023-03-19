@@ -52,3 +52,5 @@ def app(config: str, no_run: bool, path: str, forward_args: list[str]) -> None:
         else:
             sys.exit(os.system(run))
         break
+    print("No matching pattern in `~/.see.toml`", file=sys.stderr)
+    sys.exit(1)

@@ -41,13 +41,10 @@ class FileMap:
 
         results: list[Command] = []
         for wildcard, commands in self.config.paths.items():
-            print(path, wildcard)
             if Path(path).resolve().match(wildcard):
-                print("MATCH")
                 for command in commands:
                     if command.action == action:
                         results.append(command)
-            print("NO")
         results.sort(key=attrgetter("priority"), reverse=True)
         return results
 
@@ -71,10 +68,6 @@ class FileMap:
             raise AppError(f"Unable to read config {path!r}")
         except TomlDecodeError as error:
             raise AppError(f"Unable to parse TOML config {path!r}: {error}")
-
-        from rich import print
-
-        print(data)
 
         config = Config()
 
