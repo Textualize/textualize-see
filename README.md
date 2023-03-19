@@ -6,9 +6,9 @@ A TOML configuration file maps glob-style patterns on to commands. You could con
 
 Think of `see` as the terminal equivalent of double-clicking a file on the desktop.
 
-The configuration is flexible enough that `see` can run a different command depending on the directory. For instance you might want to a different command to display `.html` files (in reality, template files) in a Django project.
+The configuration is flexible enough that `see` can run a different command depending on the directory. For instance you might want a different command to display `.html` files in a Django project (which are in reality template files), than elsewhere on your system.
 
-While the default is to *view* the file, you can also request different actions, such as "edit", "format", "print" etc. 
+While the default is to *view* the file, you can request different actions, such as "edit", "format", "print" etc. 
 
 ## Install
 
@@ -41,7 +41,7 @@ see edit application.py
 This will open `application.py` with a command to edit the file.
 
 Any additional arguments added after the path are forwarded to the command.
-In the following `--pager` is not an option for `see`, so it will be forwarded to the command that opens the file.
+In the following command `--pager` is not an option for `see`, so it will be forwarded to the command that opens the file.
 
 ```
 see application.py --pager
@@ -59,7 +59,7 @@ This file should consist of several tables which specify the action (e.g. "view"
 The table should have a `run` key which defines the command to run.
 The `run` value may contain `$PATH` or `$ARGS` which will be replaced with the path and forward arguments respectively. 
 
-The following will match any files with the extension ".py":
+The following entry in `~/.see.toml` will match any files with the extension ".py":
 
 ```toml
 [[actions.view."*.py"]]
