@@ -2,12 +2,11 @@
 
 Textualize See is a command line tool to open files in the terminal.
 
-The job of `see` is run the appropriate command on your system to display a file in the terminal.
-You can configure which command to run with a TOML file that maps a glob-style file pattern on to your chosen command.
+A TOML configuration file maps glob-style patterns on to commands. You could configure `see` to open any file matching the pattern "*.py*" with [rich-cli](https://github.com/Textualize/rich-cli) and "*.rs" files with [bat](https://github.com/sharkdp/bat), for example.
 
-For instance, you could configure `see` to open Python files with [rich-cli](https://github.com/Textualize/rich-cli) and Rust files with [bat](https://github.com/sharkdp/bat).
+Think of `see` as the terminal equivalent of double-clicking a file on the desktop.
 
-The configuration is flexible enough that `see` can run a different command depending on the directory. For example you might want to use a different command to open `.html` files (in reality, template files) in a Django project.
+The configuration is flexible enough that `see` can run a different command depending on the directory. For instance you might want to a different command to display `.html` files (in reality, template files) in a Django project.
 
 While the default is to *view* the file, you can also request different actions, such as "edit", "format", "print" etc. 
 
