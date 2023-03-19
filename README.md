@@ -133,5 +133,5 @@ Until then you might have to wait an additional few microseconds to run apps.
 ## Support
 
 Consider this project alpha software for the time being.
-It was written in under a day and hasn't been battle tests.
+It was written in under a day and hasn't been battle tested.
 It has so far only been tested under MacOS, but the goal is to make it work across all the platforms.
