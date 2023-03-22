@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-
+import mimetypes
 from dataclasses import dataclass, field
+from fnmatch import fnmatch
 from operator import attrgetter
 from pathlib import Path
 
@@ -18,6 +19,7 @@ class Command:
     action: str = "view"
     run: str = ""
     priority: int = 1
+    mime_pattern: str = "*"
 
 
 @dataclass
@@ -40,10 +42,11 @@ class FileMap:
         """Get commands associated with a path."""
 
         results: list[Command] = []
+        mime_type, _ = mimetypes.guess_type(path)
         for wildcard, commands in self.config.paths.items():
             if Path(path).resolve().match(wildcard):
                 for command in commands:
-                    if command.action == action:
+                    if command.action == action and fnmatch(mime_type, command.mime_pattern):
                         results.append(command)
         results.sort(key=attrgetter("priority"), reverse=True)
         return results
@@ -88,7 +91,12 @@ class FileMap:
                         raise AppError(
                             f"Config invalid: [[{action}.{ext}]] / 'priority' expected int, found {priority!r}"
                         )
-                    extension = Command(action, run, priority)
+                    mime_pattern = extension_config.get("mime_pattern", "*")
+                    if not isinstance(mime_pattern, str):
+                        raise AppError(
+                            f"Config invalid: [[{action}.{ext}]] / 'mime_pattern' expected string, found {mime_pattern!r}"
+                        )
+                    extension = Command(action, run, priority, mime_pattern)
                     config.paths.setdefault(ext, []).append(extension)
 
         return config
