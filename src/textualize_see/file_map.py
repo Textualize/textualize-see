@@ -42,14 +42,14 @@ class FileMap:
         """Get commands associated with a path."""
 
         results: list[Command] = []
-        mime_type, _ = mimetypes.guess_type(path)
+        path_mime_type, _ = mimetypes.guess_type(path)
         for wildcard, commands in self.config.paths.items():
             if Path(path).resolve().match(wildcard):
                 for command in commands:
-                    mime_types = command.mime_types
+                    command_mime_types = command.mime_types
                     if (
                         command.action == action and
-                        any(fnmatch(mime_type, pat) for pat in mime_types)
+                        any(fnmatch(path_mime_type, t) for t in command_mime_types)
                     ):
                         results.append(command)
         results.sort(key=attrgetter("priority"), reverse=True)
