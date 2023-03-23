@@ -19,7 +19,7 @@ class Command:
     action: str = "view"
     run: str = ""
     priority: int = 1
-    mime_pattern: str = "*"
+    mime_types: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -46,7 +46,11 @@ class FileMap:
         for wildcard, commands in self.config.paths.items():
             if Path(path).resolve().match(wildcard):
                 for command in commands:
-                    if command.action == action and fnmatch(mime_type, command.mime_pattern):
+                    mime_types = command.mime_types
+                    if (
+                        command.action == action and
+                        any(fnmatch(mime_type, pat) for pat in mime_types)
+                    ):
                         results.append(command)
         results.sort(key=attrgetter("priority"), reverse=True)
         return results
@@ -91,12 +95,12 @@ class FileMap:
                         raise AppError(
                             f"Config invalid: [[{action}.{ext}]] / 'priority' expected int, found {priority!r}"
                         )
-                    mime_pattern = extension_config.get("mime_pattern", "*")
-                    if not isinstance(mime_pattern, str):
+                    mime_types = extension_config.get("mime_types", ["*"])
+                    if not isinstance(mime_types, list):
                         raise AppError(
-                            f"Config invalid: [[{action}.{ext}]] / 'mime_pattern' expected string, found {mime_pattern!r}"
+                            f"Config invalid: [[{action}.{ext}]] / 'mime_pattern' expected list, found {mime_pattern!r}"
                         )
-                    extension = Command(action, run, priority, mime_pattern)
+                    extension = Command(action, run, priority, mime_types)
                     config.paths.setdefault(ext, []).append(extension)
 
         return config
