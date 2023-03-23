@@ -46,10 +46,9 @@ class FileMap:
         for wildcard, commands in self.config.paths.items():
             if Path(path).resolve().match(wildcard):
                 for command in commands:
-                    command_mime_types = command.mime_types
                     if (
                         command.action == action and
-                        any(fnmatch(path_mime_type, t) for t in command_mime_types)
+                        any(fnmatch(path_mime_type, mt) for mt in command.mime_types)
                     ):
                         results.append(command)
         results.sort(key=attrgetter("priority"), reverse=True)
