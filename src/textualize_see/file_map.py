@@ -97,7 +97,7 @@ class FileMap:
                     mime_types = extension_config.get("mime_types", ["*"])
                     if not isinstance(mime_types, list):
                         raise AppError(
-                            f"Config invalid: [[{action}.{ext}]] / 'mime_pattern' expected list, found {mime_pattern!r}"
+                            f"Config invalid: [[{action}.{ext}]] / 'mime_types' expected list[str], found {mime_types!r}"
                         )
                     extension = Command(action, run, priority, mime_types)
                     config.paths.setdefault(ext, []).append(extension)
