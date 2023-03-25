@@ -93,6 +93,42 @@ priority = 0
 run = "cat $PATH $ARGS"
 ```
 
+### MIME type filtering
+
+It can sometimes be useful to group related actions by broad categories of file types. The optional `mime_types`
+value specifies a list of [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
+patterns. An action will only match a file if it matches both the path pattern and at least one `mime_types` pattern.
+For example:
+
+```toml
+# Use rich with no arguments for Python files
+[[actions.view."*.py"]]
+run = "rich $PATH $ARGS"
+
+# Use timg as the default viewer for image files, regardless of file extension
+[[actions.view."*"]]
+mime_types = ["image/*"]
+run = 'timg $PATH $ARGS'
+
+# Use rich with fancy styling for all other files
+[[actions.view."*"]]
+run = 'rich --panel rounded --theme github-dark --line-numbers --pager $PATH $ARGS'
+```
+
+Leaving `mime_types` unset is equivalent to setting `mime_types = ["*"]`.
+
+**Note:** The Linux [file](https://www.man7.org/linux/man-pages/man1/file.1.html) command and Python's
+[mimetypes module](https://docs.python.org/3/library/mimetypes.html#module-mimetypes) are both helpful for checking the MIME
+type of an existing file. Here are two ways to confirm that `myimage.png` is of type `image/png`:
+
+```console
+$ file --mime myimage.png
+myimage.png: image/png; charset=binary
+
+$ python -m mimetypes myimage.png
+type: image/png encoding: None
+```
+
 ## Why did I build this?
 
 I've always felt something like this should exist.
