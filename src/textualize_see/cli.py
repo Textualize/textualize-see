@@ -49,6 +49,7 @@ def app(config: str, no_run: bool, path: str, forward_args: list[str]) -> None:
         run = command.run.replace("$ARGS", args).replace("$PATH", shlex.quote(path))
         if no_run:
             print(run)
+            sys.exit()
         else:
             sys.exit(os.system(run))
         break
